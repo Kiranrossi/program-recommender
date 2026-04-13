@@ -1,4 +1,6 @@
-# NSRCEL Application Management System (Local)
+# program-recommender
+
+NSRCEL Application Management System (local / Vercel + API).
 
 ## Services
 - Frontend: Next.js at `http://localhost:3000`
