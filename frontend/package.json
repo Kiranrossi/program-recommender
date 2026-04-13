@@ -1,0 +1,30 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .next node_modules/.cache",
+    "kill:3000": "lsof -ti tcp:3000 | xargs kill -9 2>/dev/null || true",
+    "dev": "next dev",
+    "dev:clean": "npm run clean && next dev",
+    "dev:fresh": "npm run kill:3000 && npm run dev:clean",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.2.35"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.35"
+  }
+}

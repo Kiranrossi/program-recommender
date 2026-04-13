@@ -1,0 +1,14 @@
+{
+  "name": "nsrcel-program-matching",
+  "private": true,
+  "scripts": {
+    "clean": "npm run clean --prefix frontend",
+    "dev": "npm run dev --prefix frontend",
+    "dev:clean": "npm run dev:clean --prefix frontend",
+    "build": "npm run build --prefix frontend",
+    "start": "npm run start --prefix frontend",
+    "lint": "npm run lint --prefix frontend",
+    "api": "npm run dev --prefix backend",
+    "api:prod": "npm run start --prefix backend"
+  }
+}

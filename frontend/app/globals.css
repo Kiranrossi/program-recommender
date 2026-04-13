@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #0f1117;
+  --foreground: #ffffff;
+  --nsrcel-brand: #8b1a1a;
+  --nsrcel-brand-hover: #a02020;
+  --nsrcel-orange: #f26a2e;
+  --nsrcel-red: #8b1a1a;
+  --nsrcel-dark: #0f1117;
+  --card: rgba(255, 255, 255, 0.04);
+  --border: rgba(255, 255, 255, 0.1);
+  --muted: rgba(255, 255, 255, 0.35);
+  --muted-2: rgba(255, 255, 255, 0.25);
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

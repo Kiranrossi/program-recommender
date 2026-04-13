@@ -1,0 +1,220 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans)}
+.page{background:#0f1117;color:#fff;border-radius:var(--border-radius-lg);overflow:hidden}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 48px;border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.nav-mark{width:28px;height:28px;background:#8B1A1A;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.nav-mark svg{width:14px;height:14px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round}
+.nav-name{font-size:14px;font-weight:500;color:#fff}
+.nav-sub{font-size:11px;color:rgba(255,255,255,0.4);margin-top:1px}
+.nav-links{display:flex;gap:28px}
+.nav-links a{font-size:13px;color:rgba(255,255,255,0.5);text-decoration:none;cursor:pointer}
+.nav-links a:hover{color:#fff}
+.nav-cta{display:flex;gap:10px}
+.btn-ghost{font-size:13px;padding:8px 16px;border:0.5px solid rgba(255,255,255,0.2);border-radius:8px;background:transparent;color:rgba(255,255,255,0.7);cursor:pointer}
+.btn-solid{font-size:13px;padding:8px 16px;border:none;border-radius:8px;background:#8B1A1A;color:#fff;cursor:pointer;font-weight:500}
+.btn-solid:hover{background:#a02020}
+.hero{padding:80px 48px 64px;max-width:860px}
+.hero-eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:20px}
+.eyebrow-dot{width:6px;height:6px;border-radius:50%;background:#8B1A1A}
+.eyebrow-text{font-size:12px;color:rgba(255,255,255,0.45);letter-spacing:0.06em;text-transform:uppercase}
+.hero h1{font-size:52px;font-weight:500;line-height:1.1;color:#fff;margin-bottom:10px;letter-spacing:-0.02em}
+.hero h1 span{color:#8B1A1A}
+.hero-sub{font-size:17px;color:rgba(255,255,255,0.45);line-height:1.6;max-width:540px;margin-bottom:36px}
+.hero-actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.btn-primary{font-size:14px;font-weight:500;padding:12px 24px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer}
+.btn-primary:hover{background:#a02020}
+.btn-outline{font-size:14px;padding:12px 24px;border:0.5px solid rgba(255,255,255,0.18);border-radius:8px;background:transparent;color:rgba(255,255,255,0.7);cursor:pointer}
+.hero-note{font-size:12px;color:rgba(255,255,255,0.25);margin-top:16px}
+.stats-strip{display:flex;gap:0;border-top:0.5px solid rgba(255,255,255,0.08);border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.stat{flex:1;padding:24px 48px;border-right:0.5px solid rgba(255,255,255,0.08)}
+.stat:last-child{border-right:none}
+.stat-num{font-size:28px;font-weight:500;color:#fff;letter-spacing:-0.02em}
+.stat-label{font-size:12px;color:rgba(255,255,255,0.35);margin-top:4px}
+.programs-section{padding:56px 48px}
+.section-label{font-size:11px;color:rgba(255,255,255,0.3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.section-title{font-size:26px;font-weight:500;color:#fff;margin-bottom:8px}
+.section-sub{font-size:14px;color:rgba(255,255,255,0.4);margin-bottom:32px}
+.prog-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.prog-card{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:20px;cursor:pointer;transition:border-color 0.15s}
+.prog-card:hover{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.07)}
+.prog-card.featured{border-color:rgba(139,26,26,0.5);background:rgba(139,26,26,0.08)}
+.prog-tag{font-size:10px;padding:3px 8px;border-radius:20px;margin-bottom:12px;display:inline-block;font-weight:500}
+.tag-idea{background:rgba(29,158,117,0.15);color:#5DCAA5}
+.tag-growth{background:rgba(63,131,248,0.12);color:#85B7EB}
+.tag-social{background:rgba(139,26,26,0.2);color:#F0997B}
+.prog-name{font-size:14px;font-weight:500;color:#fff;margin-bottom:6px;line-height:1.3}
+.prog-desc{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5}
+.prog-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:14px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.prog-detail{font-size:11px;color:rgba(255,255,255,0.3)}
+.prog-arrow{font-size:11px;color:rgba(255,255,255,0.25)}
+.portal-section{padding:0 48px 56px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.portal-card{border-radius:12px;padding:28px;border:0.5px solid rgba(255,255,255,0.1)}
+.portal-card.applicant{background:rgba(139,26,26,0.1);border-color:rgba(139,26,26,0.35)}
+.portal-card.admin{background:rgba(255,255,255,0.03)}
+.portal-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.portal-icon.red{background:rgba(139,26,26,0.3)}
+.portal-icon.gray{background:rgba(255,255,255,0.08)}
+.portal-icon svg{width:16px;height:16px;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.portal-card h3{font-size:16px;font-weight:500;color:#fff;margin-bottom:8px}
+.portal-card p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.6;margin-bottom:20px}
+.portal-btns{display:flex;gap:8px}
+.pbtn-primary{font-size:13px;font-weight:500;padding:9px 18px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer}
+.pbtn-ghost{font-size:13px;padding:9px 18px;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer}
+.footer-bar{padding:20px 48px;border-top:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.footer-text{font-size:12px;color:rgba(255,255,255,0.2)}
+.footer-iimb{font-size:12px;color:rgba(255,255,255,0.25);display:flex;align-items:center;gap:6px}
+</style>
+
+<div class="page">
+  <nav class="nav">
+    <div class="nav-logo">
+      <div class="nav-mark">
+        <svg viewBox="0 0 14 14"><path d="M2 12L7 2L12 12M4.5 8h5"/></svg>
+      </div>
+      <div>
+        <div class="nav-name">NSRCEL</div>
+        <div class="nav-sub">IIM Bangalore</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a>Programs</a>
+      <a>Startups</a>
+      <a>About</a>
+      <a>Contact</a>
+    </div>
+    <div class="nav-cta">
+      <button class="btn-ghost">Sign in</button>
+      <button class="btn-solid">Apply now</button>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span class="eyebrow-text">Applications open — Cohort 2025–A</span>
+    </div>
+    <h1>India's leading<br>startup <span>incubator</span></h1>
+    <p class="hero-sub">From idea-stage validation to growth-stage scaling — NSRCEL at IIM Bangalore has supported 2,800+ ventures across 12 programs since 2000.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="sendPrompt('I want to apply to NSRCEL — what program fits me best?')">Start your application →</button>
+      <button class="btn-outline">Explore programs</button>
+    </div>
+    <div class="hero-note">No application fee · Results in 6–8 weeks · Open to all Indian founders</div>
+  </div>
+
+  <div class="stats-strip">
+    <div class="stat">
+      <div class="stat-num">2,800+</div>
+      <div class="stat-label">ventures supported</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">25 yrs</div>
+      <div class="stat-label">of incubation</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">82</div>
+      <div class="stat-label">towns reached</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">12</div>
+      <div class="stat-label">active programs</div>
+    </div>
+  </div>
+
+  <div class="programs-section">
+    <div class="section-label">Programs</div>
+    <div class="section-title">Find the right program for your stage</div>
+    <div class="section-sub">Each program is tailored to a specific founder profile. Select your top 3 preferences when you apply.</div>
+
+    <div class="prog-grid">
+      <div class="prog-card featured">
+        <span class="prog-tag tag-idea">Idea stage</span>
+        <div class="prog-name">Launchpad</div>
+        <div class="prog-desc">2-month pre-incubation for early-stage founders making ideas market-ready.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">~30 startups/cohort</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <span class="prog-tag tag-idea">Idea stage · Women</span>
+        <div class="prog-name">Women Startup Program</div>
+        <div class="prog-desc">For women-led idea and early-stage ventures. CSR initiative by Kotak Mahindra Bank.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">274+ founders</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <span class="prog-tag tag-social">Social impact</span>
+        <div class="prog-name">Impact Orbit</div>
+        <div class="prog-desc">Tech-enabled social innovations. Revenue/pre-revenue stage preferred. No equity taken.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">Grant funding available</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-card">
+        <span class="prog-tag tag-growth">Growth stage · Women</span>
+        <div class="prog-name">Goldman Sachs 10,000 Women</div>
+        <div class="prog-desc">Scale up with finance education, mentoring and investor networks. Fully sponsored.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">3,800+ alumni in India</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <span class="prog-tag tag-idea">Idea stage · Health</span>
+        <div class="prog-name">Healthcare Incubation</div>
+        <div class="prog-desc">CSR by DailyRounds for healthcare and med-tech innovators. Mentorship + clinical connects.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">Med-tech focus</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+      <div class="prog-card">
+        <span class="prog-tag tag-idea">Idea stage · Students</span>
+        <div class="prog-name">Campus Founders</div>
+        <div class="prog-desc">4-month program by GPS Renewables for student and recent graduate entrepreneurs.</div>
+        <div class="prog-footer">
+          <span class="prog-detail">Student founders only</span>
+          <span class="prog-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="portal-section">
+    <div class="portal-card applicant">
+      <div class="portal-icon red">
+        <svg viewBox="0 0 16 16" stroke="#F0997B"><path d="M8 2v6M5 6l3 3 3-3M3 11v2h10v-2"/></svg>
+      </div>
+      <h3>Applicant portal</h3>
+      <p>Submit a single application for all programs. Select your top 3 preferences, upload your pitch deck and video, and track your status in real time.</p>
+      <div class="portal-btns">
+        <button class="pbtn-primary" onclick="sendPrompt('Walk me through the NSRCEL application steps')">Apply now</button>
+        <button class="pbtn-ghost">View my application</button>
+      </div>
+    </div>
+    <div class="portal-card admin">
+      <div class="portal-icon gray">
+        <svg viewBox="0 0 16 16" stroke="rgba(255,255,255,0.5)"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5 7h6M5 10h4"/></svg>
+      </div>
+      <h3>Admin review console</h3>
+      <p>Review all applications, inspect AI scoring, run human-in-the-loop decisions, and monitor cohort metrics across all programs.</p>
+      <div class="portal-btns">
+        <button class="pbtn-ghost" onclick="sendPrompt('What does the NSRCEL reviewer dashboard look like?')">Open admin →</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bar">
+    <span class="footer-text">© 2025 NSRCEL · N.S. Raghavan Centre for Entrepreneurial Learning</span>
+    <span class="footer-iimb">Supported by IIM Bangalore</span>
+  </div>
+</div>

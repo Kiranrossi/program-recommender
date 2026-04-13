@@ -1,0 +1,342 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.pg{background:#0f1117;font-family:var(--font-sans);color:#fff;padding-bottom:60px}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.topbar-logo{display:flex;align-items:center;gap:8px}
+.tmark{width:24px;height:24px;background:#8B1A1A;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.tname{font-size:13px;font-weight:500;color:#fff}
+.tsub{font-size:11px;color:rgba(255,255,255,0.3);margin-top:1px}
+.nav-links{display:flex;gap:24px}
+.nav-links span{font-size:13px;color:rgba(255,255,255,0.4);cursor:pointer}
+.nav-links span.active{color:#fff}
+.nav-links span:hover{color:rgba(255,255,255,0.8)}
+.apply-btn{font-size:13px;font-weight:500;padding:8px 18px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer}
+
+.hero{padding:48px 40px 36px}
+.hero-eyebrow{display:flex;align-items:center;gap:7px;margin-bottom:14px}
+.eyebrow-dot{width:5px;height:5px;border-radius:50%;background:#8B1A1A}
+.eyebrow-txt{font-size:11px;color:rgba(255,255,255,0.35);letter-spacing:0.07em;text-transform:uppercase}
+.hero h1{font-size:36px;font-weight:500;letter-spacing:-0.02em;color:#fff;margin-bottom:8px}
+.hero p{font-size:14px;color:rgba(255,255,255,0.4);max-width:500px;line-height:1.6}
+
+.filter-bar{display:flex;gap:8px;padding:0 40px 28px;flex-wrap:wrap;align-items:center}
+.filter-btn{font-size:12px;padding:6px 14px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.12);background:transparent;color:rgba(255,255,255,0.4);cursor:pointer}
+.filter-btn.on{border-color:rgba(255,255,255,0.4);color:#fff;background:rgba(255,255,255,0.06)}
+.filter-sep{width:0.5px;height:18px;background:rgba(255,255,255,0.1);margin:0 4px}
+.filter-count{font-size:11px;color:rgba(255,255,255,0.2);margin-left:auto}
+
+.section{padding:0 40px 40px}
+.section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:0.5px solid rgba(255,255,255,0.07)}
+.section-name{font-size:12px;font-weight:500;color:rgba(255,255,255,0.5);letter-spacing:0.06em;text-transform:uppercase}
+.section-desc{font-size:12px;color:rgba(255,255,255,0.25)}
+.section-count{font-size:11px;color:rgba(255,255,255,0.2);margin-left:auto}
+
+.prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+
+.pc{border-radius:12px;border:0.5px solid rgba(255,255,255,0.09);background:rgba(255,255,255,0.03);padding:20px;cursor:pointer;display:flex;flex-direction:column;gap:0;transition:border-color 0.15s,background 0.15s}
+.pc:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.055)}
+.pc.featured{border-color:rgba(139,26,26,0.4);background:rgba(139,26,26,0.07)}
+.pc.featured:hover{border-color:rgba(139,26,26,0.7);background:rgba(139,26,26,0.12)}
+
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px}
+.pc-tags{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:500;white-space:nowrap}
+.tag-idea{background:rgba(29,158,117,0.14);color:#5DCAA5;border:0.5px solid rgba(29,158,117,0.25)}
+.tag-growth{background:rgba(55,138,221,0.12);color:#85B7EB;border:0.5px solid rgba(55,138,221,0.2)}
+.tag-social{background:rgba(139,26,26,0.18);color:#F0997B;border:0.5px solid rgba(139,26,26,0.3)}
+.tag-women{background:rgba(212,83,126,0.13);color:#ED93B1;border:0.5px solid rgba(212,83,126,0.2)}
+.tag-student{background:rgba(127,119,221,0.13);color:#AFA9EC;border:0.5px solid rgba(127,119,221,0.2)}
+.tag-mobility{background:rgba(186,117,23,0.13);color:#FAC775;border:0.5px solid rgba(186,117,23,0.2)}
+.hot-badge{font-size:10px;color:#F0997B;border:0.5px solid rgba(139,26,26,0.4);padding:2px 7px;border-radius:20px;white-space:nowrap}
+
+.pc-name{font-size:14px;font-weight:500;color:#fff;margin-bottom:6px;line-height:1.3}
+.pc-partner{font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:8px}
+.pc-desc{font-size:12px;color:rgba(255,255,255,0.38);line-height:1.55;flex:1}
+
+.pc-footer{display:flex;align-items:center;justify-content:space-between;margin-top:14px;padding-top:12px;border-top:0.5px solid rgba(255,255,255,0.06)}
+.pc-meta{display:flex;gap:12px}
+.meta-item{display:flex;flex-direction:column;gap:2px}
+.meta-label{font-size:10px;color:rgba(255,255,255,0.2)}
+.meta-val{font-size:11px;color:rgba(255,255,255,0.5);font-weight:500}
+.pc-arrow{font-size:14px;color:rgba(255,255,255,0.2)}
+
+.cta-strip{margin:20px 40px 0;background:rgba(139,26,26,0.1);border:0.5px solid rgba(139,26,26,0.3);border-radius:14px;padding:28px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.cta-left h2{font-size:20px;font-weight:500;color:#fff;margin-bottom:6px}
+.cta-left p{font-size:13px;color:rgba(255,255,255,0.4);line-height:1.5}
+.cta-pills{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.cta-pill{font-size:11px;padding:4px 12px;border-radius:20px;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.4)}
+.cta-right{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+.cta-main-btn{font-size:14px;font-weight:500;padding:12px 28px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer;white-space:nowrap}
+.cta-main-btn:hover{background:#a02020}
+.cta-ghost-btn{font-size:13px;padding:10px 28px;border:0.5px solid rgba(255,255,255,0.15);border-radius:8px;background:transparent;color:rgba(255,255,255,0.5);cursor:pointer;text-align:center}
+</style>
+
+<div class="pg">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="tmark">N</div>
+      <div>
+        <div class="tname">NSRCEL</div>
+        <div class="tsub">IIM Bangalore</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <span>Home</span>
+      <span class="active">Programs</span>
+      <span>Startups</span>
+      <span>About</span>
+    </div>
+    <button class="apply-btn" onclick="sendPrompt('I want to start my NSRCEL application')">Apply now</button>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow"><div class="eyebrow-dot"></div><span class="eyebrow-txt">Cohort 2025 · Applications open</span></div>
+    <h1>12 programs. One application.</h1>
+    <p>Select up to 3 programs when you apply. Our AI matching engine evaluates your profile against every program's criteria and finds your best fit.</p>
+  </div>
+
+  <div class="filter-bar">
+    <button class="filter-btn on">All programs</button>
+    <button class="filter-btn">Idea stage</button>
+    <button class="filter-btn">Growth stage</button>
+    <div class="filter-sep"></div>
+    <button class="filter-btn">Women-led</button>
+    <button class="filter-btn">Social impact</button>
+    <button class="filter-btn">Students</button>
+    <span class="filter-count">12 programs</span>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-name">Idea stage</span>
+      <span class="section-desc">Validate, build, and get market-ready</span>
+      <span class="section-count">4 programs</span>
+    </div>
+    <div class="prog-grid">
+
+      <div class="pc featured" onclick="sendPrompt('Tell me more about the NSRCEL Launchpad program')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-idea">Idea stage</span></div>
+          <span class="hot-badge">Most applied</span>
+        </div>
+        <div class="pc-name">Launchpad</div>
+        <div class="pc-partner">NSRCEL flagship</div>
+        <div class="pc-desc">2-month pre-incubation for early-stage founders to validate ideas, find first customers, and build market readiness with mentor access.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Duration</span><span class="meta-val">2 months</span></div>
+            <div class="meta-item"><span class="meta-label">Intake</span><span class="meta-val">~30 / cohort</span></div>
+            <div class="meta-item"><span class="meta-label">Fee</span><span class="meta-val">None</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me more about the Women Startup Program at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-idea">Idea stage</span><span class="tag tag-women">Women-led</span></div>
+        </div>
+        <div class="pc-name">Women Startup Program</div>
+        <div class="pc-partner">CSR · Kotak Mahindra Bank</div>
+        <div class="pc-desc">FOE bootcamp → hybrid pre-incubation → full incubation track for women-led idea and early-stage ventures across all sectors.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">Idea → MVP</span></div>
+            <div class="meta-item"><span class="meta-label">Alumni</span><span class="meta-val">274+ founders</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me more about the Healthcare Incubation Program at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-idea">Idea stage</span></div>
+        </div>
+        <div class="pc-name">Healthcare Incubation</div>
+        <div class="pc-partner">CSR · DailyRounds</div>
+        <div class="pc-desc">For healthcare and med-tech innovators. Domain-specific mentorship, clinical network access, and incubation support from idea to product.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-val">Med-tech</span></div>
+            <div class="meta-item"><span class="meta-label">Fee</span><span class="meta-val">None</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me more about the Campus Founders program at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-student">Students</span><span class="tag tag-idea">Idea stage</span></div>
+        </div>
+        <div class="pc-name">Campus Founders</div>
+        <div class="pc-partner">Supported by GPS Renewables</div>
+        <div class="pc-desc">4-month program exclusively for student and recent graduate entrepreneurs. Build your first venture with structured mentorship and resources.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Duration</span><span class="meta-val">4 months</span></div>
+            <div class="meta-item"><span class="meta-label">Eligibility</span><span class="meta-val">Students only</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-head">
+      <span class="section-name">Growth stage</span>
+      <span class="section-desc">Scale, fundraise, and expand markets</span>
+      <span class="section-count">8 programs</span>
+    </div>
+    <div class="prog-grid">
+
+      <div class="pc" onclick="sendPrompt('Tell me about Goldman Sachs 10000 Women at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-growth">Growth stage</span><span class="tag tag-women">Women-led</span></div>
+        </div>
+        <div class="pc-name">Goldman Sachs 10,000 Women</div>
+        <div class="pc-partner">Goldman Sachs · Fully sponsored</div>
+        <div class="pc-desc">Tools, networks, and skills to scale women-led businesses. 3,800+ alumni in India since 2008. Mentorship + investor connects.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">Revenue+</span></div>
+            <div class="meta-item"><span class="meta-label">Fee</span><span class="meta-val">Fully free</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about Goldman Sachs Finance for Growth at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-growth">Growth stage</span><span class="tag tag-women">Women-led</span></div>
+        </div>
+        <div class="pc-name">GS 10,000 Women · Finance for Growth</div>
+        <div class="pc-partner">Goldman Sachs</div>
+        <div class="pc-desc">3-module finance education track for fundraising readiness. Basic finance → advanced finance → investor networking. For GS alumni + open applicants.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Format</span><span class="meta-val">3 modules</span></div>
+            <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-val">Fundraising</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about Impact Orbit at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-social">Social impact</span><span class="tag tag-growth">Growth stage</span></div>
+        </div>
+        <div class="pc-name">Impact Orbit</div>
+        <div class="pc-partner">Tech-enabled social innovations</div>
+        <div class="pc-desc">For revenue or pre-revenue stage startups solving social challenges with technology. Grant funding, impact investor connects. No fee or equity.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">Pre-revenue+</span></div>
+            <div class="meta-item"><span class="meta-label">Equity</span><span class="meta-val">None taken</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about the Sustainable Mobility Incubation Program at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-mobility">Mobility</span><span class="tag tag-growth">Growth stage</span></div>
+        </div>
+        <div class="pc-name">Sustainable Mobility</div>
+        <div class="pc-partner">Climate tech · EV focus</div>
+        <div class="pc-desc">For startups tackling climate change through mobility and clean-tech solutions. Specialized mentorship, funding pathways, and impact scaling support.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Sector</span><span class="meta-val">CleanTech</span></div>
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">MVP+</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about the Circular Economy Incubation Program at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-social">Social impact</span><span class="tag tag-growth">Growth stage</span></div>
+        </div>
+        <div class="pc-name">Circular Economy Incubation</div>
+        <div class="pc-partner">Sustainability focus</div>
+        <div class="pc-desc">Incubation pathway for startups tackling circular economy, waste reduction, and resource efficiency. For ventures with a clear sustainability thesis.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-val">Circular / waste</span></div>
+            <div class="meta-item"><span class="meta-label">Fee</span><span class="meta-val">None</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about Emerging Consumer Brands at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-growth">Growth stage</span></div>
+        </div>
+        <div class="pc-name">Emerging Consumer Brands</div>
+        <div class="pc-partner">D2C · FMCG · Retail</div>
+        <div class="pc-desc">Growth support for consumer-focused startups building scalable brands. GTM strategy, distribution partnerships, and brand-building mentorship.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Sector</span><span class="meta-val">D2C / FMCG</span></div>
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">Revenue+</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about Swavalambane at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-social">Social impact</span></div>
+        </div>
+        <div class="pc-name">Swavalambane</div>
+        <div class="pc-partner">Grassroots entrepreneurship</div>
+        <div class="pc-desc">For social and grassroots entrepreneurs building inclusive ventures that create livelihoods and drive community-level economic growth.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Focus</span><span class="meta-val">Grassroots</span></div>
+            <div class="meta-item"><span class="meta-label">Tier 2/3</span><span class="meta-val">Priority</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+      <div class="pc" onclick="sendPrompt('Tell me about Velocity at NSRCEL')">
+        <div class="pc-top">
+          <div class="pc-tags"><span class="tag tag-growth">Growth stage</span></div>
+        </div>
+        <div class="pc-name">Velocity</div>
+        <div class="pc-partner">Scale-up track</div>
+        <div class="pc-desc">For high-growth startups preparing for accelerated growth trajectories. Intensive mentorship, investor access, and go-to-market scaling support.</div>
+        <div class="pc-footer">
+          <div class="pc-meta">
+            <div class="meta-item"><span class="meta-label">Stage</span><span class="meta-val">Series A ready</span></div>
+            <div class="meta-item"><span class="meta-label">Format</span><span class="meta-val">Intensive</span></div>
+          </div>
+          <span class="pc-arrow">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div class="cta-left">
+      <h2>One application. Up to 3 programs.</h2>
+      <p>Submit a single universal form and select your top 3 program preferences. Our AI scoring engine evaluates your profile against each program's criteria and matches you to the best fit — reviewed by the NSRCEL team before a final decision.</p>
+      <div class="cta-pills">
+        <span class="cta-pill">No application fee</span>
+        <span class="cta-pill">Results in 6–8 weeks</span>
+        <span class="cta-pill">Open to all Indian founders</span>
+        <span class="cta-pill">Tier 2 city bonus</span>
+      </div>
+    </div>
+    <div class="cta-right">
+      <button class="cta-main-btn" onclick="sendPrompt('Start my NSRCEL application now')">Start application →</button>
+      <button class="cta-ghost-btn">View my application</button>
+    </div>
+  </div>
+</div>

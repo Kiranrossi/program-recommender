@@ -1,0 +1,272 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{font-family:var(--font-sans);background:#0f1117;color:#fff;display:grid;grid-template-columns:1fr 1fr;min-height:640px;border-radius:var(--border-radius-lg);overflow:hidden}
+.left-panel{background:#0f1117;border-right:0.5px solid rgba(255,255,255,0.07);display:flex;flex-direction:column;padding:32px}
+.right-panel{background:#0f1117;display:flex;flex-direction:column;padding:32px}
+.panel-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-mark{width:26px;height:26px;background:#8B1A1A;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.logo-name{font-size:13px;font-weight:500;color:#fff}
+.logo-sub{font-size:10px;color:rgba(255,255,255,0.3);margin-top:1px}
+.tab-switch{display:flex;background:rgba(255,255,255,0.05);border-radius:8px;padding:3px;gap:2px}
+.tab{font-size:12px;padding:6px 16px;border-radius:6px;cursor:pointer;color:rgba(255,255,255,0.4);border:none;background:transparent}
+.tab.active{background:rgba(255,255,255,0.1);color:#fff;font-weight:500}
+.form-area{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:340px;width:100%}
+.form-title{font-size:22px;font-weight:500;color:#fff;margin-bottom:6px;letter-spacing:-0.01em}
+.form-sub{font-size:13px;color:rgba(255,255,255,0.35);margin-bottom:32px;line-height:1.5}
+.field{margin-bottom:16px}
+.field-label{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:6px;display:block}
+.field-input{width:100%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:11px 14px;font-size:13px;color:#fff;font-family:var(--font-sans);outline:none;transition:border-color 0.15s}
+.field-input:focus{border-color:rgba(139,26,26,0.7);box-shadow:0 0 0 3px rgba(139,26,26,0.12)}
+.field-input::placeholder{color:rgba(255,255,255,0.18)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pw-wrap{position:relative}
+.pw-wrap .field-input{padding-right:42px}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.25);font-size:11px;padding:4px}
+.pw-toggle:hover{color:rgba(255,255,255,0.6)}
+.forgot{text-align:right;margin-top:-8px;margin-bottom:20px}
+.forgot a{font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;text-decoration:none}
+.forgot a:hover{color:rgba(255,255,255,0.6)}
+.submit-btn{width:100%;padding:12px;background:#8B1A1A;border:none;border-radius:8px;font-size:14px;font-weight:500;color:#fff;cursor:pointer;margin-bottom:20px;transition:background 0.15s}
+.submit-btn:hover{background:#a02020}
+.submit-btn:active{transform:scale(0.99)}
+.divider-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.div-line{flex:1;height:0.5px;background:rgba(255,255,255,0.08)}
+.div-text{font-size:11px;color:rgba(255,255,255,0.2)}
+.google-btn{width:100%;padding:11px;background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.12);border-radius:8px;font-size:13px;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background 0.15s}
+.google-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2);color:#fff}
+.g-icon{width:16px;height:16px;flex-shrink:0}
+.switch-link{text-align:center;font-size:12px;color:rgba(255,255,255,0.25);margin-top:20px}
+.switch-link a{color:rgba(255,255,255,0.55);cursor:pointer;text-decoration:none}
+.switch-link a:hover{color:#fff}
+.role-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.role-card{border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;padding:14px;cursor:pointer;transition:all 0.15s;background:transparent}
+.role-card:hover{border-color:rgba(255,255,255,0.25);background:rgba(255,255,255,0.03)}
+.role-card.selected{border-color:rgba(139,26,26,0.6);background:rgba(139,26,26,0.1)}
+.role-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.role-icon svg{width:14px;height:14px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ri-red{background:rgba(139,26,26,0.2)}
+.ri-gray{background:rgba(255,255,255,0.06)}
+.role-name{font-size:12px;font-weight:500;color:#fff;margin-bottom:2px}
+.role-sub{font-size:10px;color:rgba(255,255,255,0.3)}
+.terms{font-size:11px;color:rgba(255,255,255,0.2);text-align:center;margin-top:12px;line-height:1.5}
+.terms a{color:rgba(255,255,255,0.4);text-decoration:none;cursor:pointer}
+.right-bg{flex:1;display:flex;flex-direction:column;justify-content:center;padding:0 8px}
+.testimonial-block{margin-bottom:32px}
+.quote{font-size:16px;color:rgba(255,255,255,0.7);line-height:1.7;font-style:italic;margin-bottom:16px}
+.quote-mark{font-size:32px;color:rgba(139,26,26,0.5);line-height:0.8;margin-bottom:8px}
+.quotee{display:flex;align-items:center;gap:10px}
+.q-avatar{width:32px;height:32px;border-radius:50%;background:#3C3489;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#CECBF6}
+.q-name{font-size:12px;font-weight:500;color:#fff}
+.q-role{font-size:11px;color:rgba(255,255,255,0.35)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:40px}
+.stat-box{background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.08);border-radius:10px;padding:16px}
+.stat-num{font-size:22px;font-weight:500;color:#fff;letter-spacing:-0.02em}
+.stat-label{font-size:11px;color:rgba(255,255,255,0.3);margin-top:3px}
+.prog-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:32px}
+.prog-pill{font-size:10px;padding:4px 10px;border-radius:20px;border:0.5px solid rgba(255,255,255,0.08);color:rgba(255,255,255,0.3)}
+.prog-pill.lit{border-color:rgba(139,26,26,0.35);color:rgba(240,153,123,0.7);background:rgba(139,26,26,0.07)}
+.section-divider{height:0.5px;background:rgba(255,255,255,0.06);margin:24px 0}
+.page-label{font-size:10px;color:rgba(255,255,255,0.15);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px}
+</style>
+
+<div class="wrap">
+  <div class="left-panel">
+    <div class="panel-top">
+      <div class="logo">
+        <div class="logo-mark">N</div>
+        <div>
+          <div class="logo-name">NSRCEL</div>
+          <div class="logo-sub">IIM Bangalore</div>
+        </div>
+      </div>
+      <div class="tab-switch">
+        <button class="tab active" onclick="showLogin()">Sign in</button>
+        <button class="tab" onclick="showSignup()">Sign up</button>
+      </div>
+    </div>
+
+    <div class="form-area">
+
+      <div id="login-form">
+        <div class="form-title">Welcome back</div>
+        <div class="form-sub">Sign in to track your application or continue where you left off.</div>
+
+        <div class="field">
+          <label class="field-label">Email address</label>
+          <input class="field-input" type="email" placeholder="you@example.com"/>
+        </div>
+        <div class="field">
+          <label class="field-label">Password</label>
+          <div class="pw-wrap">
+            <input class="field-input" type="password" placeholder="Enter your password" id="pw1"/>
+            <button class="pw-toggle" onclick="togglePw('pw1',this)">Show</button>
+          </div>
+        </div>
+        <div class="forgot"><a>Forgot password?</a></div>
+
+        <button class="submit-btn" onclick="sendPrompt('I just signed in — take me to my applicant dashboard')">Sign in →</button>
+
+        <div class="divider-row">
+          <div class="div-line"></div>
+          <span class="div-text">or continue with</span>
+          <div class="div-line"></div>
+        </div>
+
+        <button class="google-btn">
+          <svg class="g-icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15.5 8.17c0-.57-.05-1.12-.14-1.64H8v3.1h4.2a3.6 3.6 0 01-1.56 2.36v1.96h2.52C14.66 12.56 15.5 10.53 15.5 8.17z" fill="#4285F4"/>
+            <path d="M8 16c2.1 0 3.87-.7 5.16-1.88l-2.52-1.96C9.9 12.72 9.01 13 8 13c-2.03 0-3.75-1.37-4.36-3.21H1.04v2.02A8 8 0 008 16z" fill="#34A853"/>
+            <path d="M3.64 9.79A4.8 4.8 0 013.39 8c0-.62.1-1.22.25-1.79V4.19H1.04A8 8 0 000 8c0 1.29.31 2.51.85 3.59l2.79-1.8z" fill="#FBBC05"/>
+            <path d="M8 3.18c1.14 0 2.17.39 2.97 1.16l2.23-2.23C11.86.79 10.1 0 8 0A8 8 0 001.04 4.19l2.6 1.98C4.25 4.55 5.97 3.18 8 3.18z" fill="#EA4335"/>
+          </svg>
+          Continue with Google
+        </button>
+
+        <div class="switch-link">Don't have an account? <a onclick="showSignup()">Create one →</a></div>
+      </div>
+
+      <div id="signup-form" style="display:none">
+        <div class="form-title">Create account</div>
+        <div class="form-sub">Apply to NSRCEL programs. One account, all programs.</div>
+
+        <div style="font-size:11px;color:rgba(255,255,255,0.3);margin-bottom:10px">I am a</div>
+        <div class="role-pick">
+          <div class="role-card selected" id="role-applicant" onclick="selectRole('applicant')">
+            <div class="role-icon ri-red">
+              <svg viewBox="0 0 14 14" stroke="#F0997B"><circle cx="7" cy="4.5" r="2.5"/><path d="M2 12c0-2.76 2.24-5 5-5s5 2.24 5 5"/></svg>
+            </div>
+            <div class="role-name">Startup founder</div>
+            <div class="role-sub">Apply to programs</div>
+          </div>
+          <div class="role-card" id="role-admin" onclick="selectRole('admin')">
+            <div class="role-icon ri-gray">
+              <svg viewBox="0 0 14 14" stroke="rgba(255,255,255,0.4)"><rect x="2" y="3" width="10" height="8" rx="1.5"/><path d="M5 6h4M5 8.5h2.5"/></svg>
+            </div>
+            <div class="role-name">NSRCEL team</div>
+            <div class="role-sub">Reviewer access</div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label class="field-label">First name</label>
+            <input class="field-input" type="text" placeholder="Priya"/>
+          </div>
+          <div class="field">
+            <label class="field-label">Last name</label>
+            <input class="field-input" type="text" placeholder="Krishnamurthy"/>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label">Email address</label>
+          <input class="field-input" type="email" placeholder="you@example.com"/>
+        </div>
+        <div class="field">
+          <label class="field-label">Password</label>
+          <div class="pw-wrap">
+            <input class="field-input" type="password" placeholder="Min. 8 characters" id="pw2"/>
+            <button class="pw-toggle" onclick="togglePw('pw2',this)">Show</button>
+          </div>
+        </div>
+
+        <button class="submit-btn" onclick="sendPrompt('I just created an account — take me to start my NSRCEL application')">Create account →</button>
+
+        <div class="divider-row">
+          <div class="div-line"></div>
+          <span class="div-text">or</span>
+          <div class="div-line"></div>
+        </div>
+
+        <button class="google-btn">
+          <svg class="g-icon" viewBox="0 0 16 16" fill="none">
+            <path d="M15.5 8.17c0-.57-.05-1.12-.14-1.64H8v3.1h4.2a3.6 3.6 0 01-1.56 2.36v1.96h2.52C14.66 12.56 15.5 10.53 15.5 8.17z" fill="#4285F4"/>
+            <path d="M8 16c2.1 0 3.87-.7 5.16-1.88l-2.52-1.96C9.9 12.72 9.01 13 8 13c-2.03 0-3.75-1.37-4.36-3.21H1.04v2.02A8 8 0 008 16z" fill="#34A853"/>
+            <path d="M3.64 9.79A4.8 4.8 0 013.39 8c0-.62.1-1.22.25-1.79V4.19H1.04A8 8 0 000 8c0 1.29.31 2.51.85 3.59l2.79-1.8z" fill="#FBBC05"/>
+            <path d="M8 3.18c1.14 0 2.17.39 2.97 1.16l2.23-2.23C11.86.79 10.1 0 8 0A8 8 0 001.04 4.19l2.6 1.98C4.25 4.55 5.97 3.18 8 3.18z" fill="#EA4335"/>
+          </svg>
+          Sign up with Google
+        </button>
+
+        <div class="terms">By creating an account you agree to our <a>Terms of Service</a> and <a>Privacy Policy</a></div>
+        <div class="switch-link" style="margin-top:10px">Already have an account? <a onclick="showLogin()">Sign in →</a></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div style="height:52px"></div>
+    <div class="right-bg">
+      <div class="testimonial-block">
+        <div class="quote-mark">"</div>
+        <div class="quote">NSRCEL didn't just give us mentorship — they gave us the network and credibility to raise our seed round within 6 months of graduating.</div>
+        <div class="quotee">
+          <div class="q-avatar">RV</div>
+          <div>
+            <div class="q-name">Rohit Varma</div>
+            <div class="q-role">Founder, AgriPulse · Launchpad Cohort 22</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-divider"></div>
+
+      <div class="stats-row">
+        <div class="stat-box">
+          <div class="stat-num">2,800+</div>
+          <div class="stat-label">ventures supported</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">₹1.5B+</div>
+          <div class="stat-label">portfolio value</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">25 yrs</div>
+          <div class="stat-label">of incubation</div>
+        </div>
+      </div>
+
+      <div class="prog-pills">
+        <span class="prog-pill lit">Launchpad</span>
+        <span class="prog-pill lit">Women Startup Program</span>
+        <span class="prog-pill lit">Impact Orbit</span>
+        <span class="prog-pill">Goldman Sachs 10,000 Women</span>
+        <span class="prog-pill">Healthcare Incubation</span>
+        <span class="prog-pill">Campus Founders</span>
+        <span class="prog-pill">Velocity</span>
+        <span class="prog-pill">Swavalambane</span>
+        <span class="prog-pill">Circular Economy</span>
+        <span class="prog-pill">Sustainable Mobility</span>
+        <span class="prog-pill">Emerging Consumer Brands</span>
+        <span class="prog-pill">GS Finance for Growth</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showLogin(){
+  document.getElementById('login-form').style.display='block';
+  document.getElementById('signup-form').style.display='none';
+  document.querySelectorAll('.tab')[0].classList.add('active');
+  document.querySelectorAll('.tab')[1].classList.remove('active');
+}
+function showSignup(){
+  document.getElementById('login-form').style.display='none';
+  document.getElementById('signup-form').style.display='block';
+  document.querySelectorAll('.tab')[0].classList.remove('active');
+  document.querySelectorAll('.tab')[1].classList.add('active');
+}
+function togglePw(id,btn){
+  var inp=document.getElementById(id);
+  if(inp.type==='password'){inp.type='text';btn.textContent='Hide';}
+  else{inp.type='password';btn.textContent='Show';}
+}
+function selectRole(role){
+  document.getElementById('role-applicant').classList.remove('selected');
+  document.getElementById('role-admin').classList.remove('selected');
+  document.getElementById('role-'+role).classList.add('selected');
+}
+</script>

@@ -1,0 +1,295 @@
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.pg{background:#0f1117;min-height:600px;font-family:var(--font-sans);color:#fff}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 40px;border-bottom:0.5px solid rgba(255,255,255,0.08)}
+.topbar-logo{display:flex;align-items:center;gap:8px}
+.tmark{width:24px;height:24px;background:#8B1A1A;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff}
+.tname{font-size:13px;font-weight:500;color:#fff}
+.topbar-right{display:flex;align-items:center;gap:16px}
+.back-btn{font-size:12px;color:rgba(255,255,255,0.35);cursor:pointer;display:flex;align-items:center;gap:5px;border:0.5px solid rgba(255,255,255,0.1);padding:6px 12px;border-radius:6px;background:transparent}
+.back-btn:hover{color:rgba(255,255,255,0.7)}
+.user-pill{display:flex;align-items:center;gap:8px}
+.avatar{width:28px;height:28px;border-radius:50%;background:#3C3489;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#CECBF6}
+.user-name{font-size:12px;color:rgba(255,255,255,0.5)}
+.body{padding:40px 40px 40px;max-width:960px;margin:0 auto}
+.page-head{margin-bottom:32px}
+.page-head h1{font-size:22px;font-weight:500;color:#fff;margin-bottom:4px}
+.page-head p{font-size:13px;color:rgba(255,255,255,0.35)}
+.grid2{display:grid;grid-template-columns:1fr 340px;gap:20px;align-items:start}
+.card{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;overflow:hidden}
+.card-header{padding:16px 20px;border-bottom:0.5px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:13px;font-weight:500;color:#fff}
+.card-action{font-size:11px;color:rgba(255,255,255,0.3);cursor:pointer;border:0.5px solid rgba(255,255,255,0.1);padding:4px 10px;border-radius:5px;background:transparent}
+.card-action:hover{color:#fff;border-color:rgba(255,255,255,0.3)}
+.status-block{padding:20px}
+.status-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.status-label{font-size:12px;color:rgba(255,255,255,0.35)}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:500}
+.chip-review{background:rgba(239,159,39,0.15);color:#FAC775;border:0.5px solid rgba(239,159,39,0.2)}
+.chip-done{background:rgba(29,158,117,0.15);color:#5DCAA5;border:0.5px solid rgba(29,158,117,0.2)}
+.chip-pending{background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.35);border:0.5px solid rgba(255,255,255,0.1)}
+.prog-badge{display:flex;align-items:center;gap:8px;background:rgba(139,26,26,0.12);border:0.5px solid rgba(139,26,26,0.3);border-radius:8px;padding:10px 14px;margin-top:4px}
+.prog-icon{width:28px;height:28px;background:rgba(139,26,26,0.3);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prog-icon svg{width:13px;height:13px;fill:none;stroke:#F0997B;stroke-width:1.8;stroke-linecap:round}
+.prog-name{font-size:12px;font-weight:500;color:#fff}
+.prog-sub{font-size:11px;color:rgba(255,255,255,0.35);margin-top:1px}
+.divider{height:0.5px;background:rgba(255,255,255,0.08);margin:16px 0}
+.timeline{padding:0 20px 20px}
+.tl-title{font-size:11px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px}
+.tl-item{display:flex;gap:12px;margin-bottom:14px;position:relative}
+.tl-item:last-child{margin-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center;gap:0}
+.tl-dot{width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tl-dot.done{background:rgba(29,158,117,0.2);border:0.5px solid #1D9E75}
+.tl-dot.active{background:rgba(239,159,39,0.2);border:0.5px solid #EF9F27}
+.tl-dot.wait{background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1)}
+.tl-dot svg{width:9px;height:9px;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.tl-line{width:0.5px;flex:1;background:rgba(255,255,255,0.08);min-height:18px}
+.tl-right{padding-top:1px}
+.tl-step{font-size:12px;font-weight:500;color:#fff}
+.tl-step.muted{color:rgba(255,255,255,0.3)}
+.tl-date{font-size:11px;color:rgba(255,255,255,0.25);margin-top:1px}
+.right-col{display:flex;flex-direction:column;gap:16px}
+.score-block{padding:20px}
+.score-heading{font-size:11px;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:14px}
+.score-total{display:flex;align-items:baseline;gap:6px;margin-bottom:16px}
+.score-big{font-size:36px;font-weight:500;color:#5DCAA5;letter-spacing:-0.02em}
+.score-max{font-size:14px;color:rgba(255,255,255,0.25)}
+.score-bar-wrap{margin-bottom:8px}
+.sb-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sb-label{font-size:11px;color:rgba(255,255,255,0.35);width:96px;flex-shrink:0}
+.sb-track{flex:1;height:3px;background:rgba(255,255,255,0.08);border-radius:2px}
+.sb-fill{height:3px;border-radius:2px;background:#1D9E75}
+.sb-fill.mid{background:#EF9F27}
+.sb-val{font-size:11px;color:rgba(255,255,255,0.4);width:20px;text-align:right}
+.upload-block{padding:20px}
+.upload-zone{border:0.5px dashed rgba(255,255,255,0.15);border-radius:8px;padding:20px;text-align:center;cursor:pointer;margin-bottom:12px;transition:border-color 0.15s}
+.upload-zone:hover{border-color:rgba(255,255,255,0.3);background:rgba(255,255,255,0.02)}
+.upload-icon{width:32px;height:32px;background:rgba(255,255,255,0.06);border-radius:8px;display:flex;align-items:center;justify-content:center;margin:0 auto 8px}
+.upload-icon svg{width:15px;height:15px;fill:none;stroke:rgba(255,255,255,0.4);stroke-width:1.5;stroke-linecap:round}
+.upload-text{font-size:12px;color:rgba(255,255,255,0.4)}
+.upload-sub{font-size:11px;color:rgba(255,255,255,0.2);margin-top:3px}
+.uploaded-file{display:flex;align-items:center;gap:10px;background:rgba(29,158,117,0.08);border:0.5px solid rgba(29,158,117,0.2);border-radius:8px;padding:10px 14px;margin-bottom:12px}
+.file-icon{width:28px;height:28px;background:rgba(29,158,117,0.15);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.file-icon svg{width:13px;height:13px;fill:none;stroke:#5DCAA5;stroke-width:1.8;stroke-linecap:round}
+.file-name{font-size:12px;font-weight:500;color:#fff;flex:1}
+.file-size{font-size:11px;color:rgba(255,255,255,0.25)}
+.video-row{display:flex;gap:8px}
+.video-input{flex:1;font-size:12px;font-family:var(--font-sans);background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:9px 12px;color:#fff;outline:none}
+.video-input::placeholder{color:rgba(255,255,255,0.2)}
+.video-input:focus{border-color:rgba(139,26,26,0.6);box-shadow:0 0 0 2px rgba(139,26,26,0.12)}
+.save-btn{font-size:12px;font-weight:500;padding:9px 16px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer;white-space:nowrap}
+.save-btn:hover{background:#a02020}
+.next-card{background:rgba(139,26,26,0.1);border:0.5px solid rgba(139,26,26,0.3)}
+.next-block{padding:16px 20px}
+.next-title{font-size:12px;font-weight:500;color:#fff;margin-bottom:4px}
+.next-text{font-size:11px;color:rgba(255,255,255,0.35);line-height:1.5;margin-bottom:12px}
+.next-btn{width:100%;font-size:12px;font-weight:500;padding:9px;background:#8B1A1A;border:none;border-radius:8px;color:#fff;cursor:pointer}
+.appid{font-size:10px;color:rgba(255,255,255,0.15);font-family:var(--font-mono);padding:12px 20px;border-top:0.5px solid rgba(255,255,255,0.06)}
+</style>
+
+<div class="pg">
+  <div class="topbar">
+    <div class="topbar-logo">
+      <div class="tmark">N</div>
+      <span class="tname">NSRCEL · IIM Bangalore</span>
+    </div>
+    <div class="topbar-right">
+      <button class="back-btn" onclick="sendPrompt('Go back to NSRCEL home')">← Home</button>
+      <div class="user-pill">
+        <div class="avatar">PK</div>
+        <span class="user-name">Priya Krishnamurthy</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="page-head">
+      <h1>Your application</h1>
+      <p>MediTrace AI · Applied Mar 12, 2025</p>
+    </div>
+
+    <div class="grid2">
+      <div style="display:flex;flex-direction:column;gap:16px">
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Application status</span>
+            <button class="card-action">Refresh</button>
+          </div>
+          <div class="status-block">
+            <div class="status-row">
+              <span class="status-label">Application</span>
+              <span class="chip chip-review">Under review</span>
+            </div>
+            <div class="status-row">
+              <span class="status-label">AI scoring</span>
+              <span class="chip chip-done">Completed</span>
+            </div>
+            <div class="status-row" style="margin-bottom:8px">
+              <span class="status-label">Final decision</span>
+              <span class="chip chip-pending">Pending</span>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:12px">Assigned program</div>
+            <div class="prog-badge">
+              <div class="prog-icon">
+                <svg viewBox="0 0 13 13"><path d="M2 11L6.5 2L11 11M4 8h5"/></svg>
+              </div>
+              <div>
+                <div class="prog-name">Healthcare Incubation Program</div>
+                <div class="prog-sub">CSR initiative · DailyRounds · Med-tech focus</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider" style="margin:0"></div>
+          <div class="timeline">
+            <div class="tl-title">Pipeline progress</div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot done">
+                  <svg viewBox="0 0 9 9" stroke="#5DCAA5"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg>
+                </div>
+                <div class="tl-line"></div>
+              </div>
+              <div class="tl-right">
+                <div class="tl-step">Application submitted</div>
+                <div class="tl-date">Mar 12, 2025</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot done">
+                  <svg viewBox="0 0 9 9" stroke="#5DCAA5"><polyline points="1.5,4.5 3.5,6.5 7.5,2.5"/></svg>
+                </div>
+                <div class="tl-line"></div>
+              </div>
+              <div class="tl-right">
+                <div class="tl-step">AI scoring completed</div>
+                <div class="tl-date">Mar 13, 2025 · Score: 84/100</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot active">
+                  <svg viewBox="0 0 9 9"><circle cx="4.5" cy="4.5" r="2" fill="#EF9F27"/></svg>
+                </div>
+                <div class="tl-line"></div>
+              </div>
+              <div class="tl-right">
+                <div class="tl-step">Human review in progress</div>
+                <div class="tl-date">NSRCEL team reviewing · est. 5–7 days</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot wait"></div>
+                <div class="tl-line"></div>
+              </div>
+              <div class="tl-right">
+                <div class="tl-step muted">Shortlist decision</div>
+                <div class="tl-date">Pending</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-left">
+                <div class="tl-dot wait"></div>
+              </div>
+              <div class="tl-right">
+                <div class="tl-step muted">Final offer / rejection</div>
+                <div class="tl-date">Pending</div>
+              </div>
+            </div>
+          </div>
+          <div class="appid">Application · b0d82373-87da-4444-90b5</div>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Pitch materials</span>
+          </div>
+          <div class="upload-block">
+            <div class="uploaded-file">
+              <div class="file-icon">
+                <svg viewBox="0 0 13 13"><rect x="2" y="1" width="9" height="11" rx="1.5"/><path d="M4 5h5M4 7.5h3"/></svg>
+              </div>
+              <div style="flex:1">
+                <div class="file-name">MediTrace_PitchDeck_v3.pdf</div>
+                <div class="file-size">2.4 MB · Uploaded Mar 12</div>
+              </div>
+              <button style="font-size:11px;color:rgba(255,255,255,0.3);background:none;border:none;cursor:pointer">Replace</button>
+            </div>
+
+            <div class="upload-zone" onclick="sendPrompt('How do I upload a new pitch deck?')">
+              <div class="upload-icon">
+                <svg viewBox="0 0 15 15"><path d="M7.5 10V3M4.5 6L7.5 3L10.5 6M3 12h9"/></svg>
+              </div>
+              <div class="upload-text">Upload new pitch deck</div>
+              <div class="upload-sub">PDF · Max 20 MB</div>
+            </div>
+
+            <div style="font-size:11px;color:rgba(255,255,255,0.25);margin-bottom:8px">Video pitch link</div>
+            <div class="video-row">
+              <input class="video-input" type="text" placeholder="Paste YouTube / Google Drive / Loom URL" value="https://youtu.be/abc123_meditrace"/>
+              <button class="save-btn">Save</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="right-col">
+        <div class="card">
+          <div class="card-header">
+            <span class="card-title">Your C2R score</span>
+            <span style="font-size:11px;color:rgba(29,158,117,0.8)">AI evaluated</span>
+          </div>
+          <div class="score-block">
+            <div class="score-total">
+              <span class="score-big">84</span>
+              <span class="score-max">/ 100</span>
+            </div>
+            <div class="score-bar-wrap">
+              <div class="sb-row"><span class="sb-label">Problem clarity</span><div class="sb-track"><div class="sb-fill" style="width:88%"></div></div><span class="sb-val">88</span></div>
+              <div class="sb-row"><span class="sb-label">Solution</span><div class="sb-track"><div class="sb-fill" style="width:82%"></div></div><span class="sb-val">82</span></div>
+              <div class="sb-row"><span class="sb-label">Market potential</span><div class="sb-track"><div class="sb-fill mid" style="width:74%"></div></div><span class="sb-val">74</span></div>
+              <div class="sb-row"><span class="sb-label">Team strength</span><div class="sb-track"><div class="sb-fill" style="width:90%"></div></div><span class="sb-val">90</span></div>
+              <div class="sb-row"><span class="sb-label">Traction</span><div class="sb-track"><div class="sb-fill mid" style="width:68%"></div></div><span class="sb-val">68</span></div>
+              <div class="sb-row"><span class="sb-label">Social impact</span><div class="sb-track"><div class="sb-fill" style="width:86%"></div></div><span class="sb-val">86</span></div>
+              <div class="sb-row"><span class="sb-label">Tier 2 bonus</span><div class="sb-track"><div class="sb-fill" style="width:100%"></div></div><span class="sb-val">+5</span></div>
+            </div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.2);line-height:1.5;margin-top:10px;padding-top:10px;border-top:0.5px solid rgba(255,255,255,0.06)">Strong problem-solution fit and team credentials. Market sizing section could be strengthened.</div>
+          </div>
+        </div>
+
+        <div class="card next-card">
+          <div class="next-block">
+            <div class="next-title">What happens next?</div>
+            <div class="next-text">The NSRCEL review team is evaluating your pitch deck and video. You'll receive an email within 5–7 business days with your shortlist status.</div>
+            <button class="next-btn" onclick="sendPrompt('What should I prepare for the NSRCEL shortlist interview?')">Prepare for interview →</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="card-title">Program preferences</span></div>
+          <div style="padding:14px 20px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:18px;height:18px;border-radius:50%;background:rgba(139,26,26,0.2);border:0.5px solid rgba(139,26,26,0.4);font-size:10px;font-weight:500;color:#F0997B;display:flex;align-items:center;justify-content:center;flex-shrink:0">1</div>
+              <span style="font-size:12px;color:#fff">Healthcare Incubation Program</span>
+              <span style="font-size:10px;color:#5DCAA5;margin-left:auto">matched</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0">2</div>
+              <span style="font-size:12px;color:rgba(255,255,255,0.45)">Impact Orbit</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,0.05);border:0.5px solid rgba(255,255,255,0.1);font-size:10px;font-weight:500;color:rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;flex-shrink:0">3</div>
+              <span style="font-size:12px;color:rgba(255,255,255,0.45)">Launchpad</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
