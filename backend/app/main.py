@@ -1,3 +1,4 @@
+import logging
 import os
 
 from fastapi import FastAPI
@@ -5,8 +6,13 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from sqlalchemy import text
+
 from app.config import settings
+from app.database import AsyncSessionLocal
 from app.routers import admin, applications, auth, internal, programs, simulations
+
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -27,9 +33,21 @@ if settings.BACKEND_CORS_ORIGINS:
 
 @app.get("/api/v1/health")
 async def health_check():
+    """Process is up; `database` reports whether Supabase/Postgres accepts connections (debugging deploys)."""
+    db_ok = False
+    try:
+        async with AsyncSessionLocal() as session:
+            await session.execute(text("SELECT 1"))
+        db_ok = True
+    except Exception:
+        logger.exception("Health check: database connection failed")
     return {
         "success": True,
-        "data": {"status": "ok", "message": "NSRCEL API Backend is up."},
+        "data": {
+            "status": "ok",
+            "database": "up" if db_ok else "down",
+            "message": "NSRCEL API Backend is up.",
+        },
     }
 
 

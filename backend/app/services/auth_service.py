@@ -6,12 +6,15 @@ import jwt
 from google.auth.transport import requests as google_requests
 from google.oauth2 import id_token as google_id_token
 from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
 from app.middleware.auth import LOCAL_ADMIN_ID
 from app.models.user import User
 from app.schemas.auth import GoogleAuthRequest, LoginRequest, RegisterRequest, TokenResponse, UserPublic
+
+LEGACY_ADMIN_EMAIL = "legacy-admin@nsrcel.local"
 
 
 def _jwt_secret() -> str:
@@ -159,19 +162,33 @@ async def legacy_admin_login(db: AsyncSession, username: str, password: str) -> 
     admin_uuid = UUID(LOCAL_ADMIN_ID)
     user = await get_user_by_id(db, admin_uuid)
     if not user:
+        user = (
+            await db.execute(select(User).where(User.email == LEGACY_ADMIN_EMAIL))
+        ).scalar_one_or_none()
+    if not user:
         user = User(
             id=admin_uuid,
             clerk_id=None,
-            email="legacy-admin@nsrcel.local",
+            email=LEGACY_ADMIN_EMAIL,
             full_name="Admin (dev)",
             role="admin",
             auth_provider="password",
             password_hash=None,
         )
         db.add(user)
-        await db.commit()
-        await db.refresh(user)
-    elif user.role != "admin":
+        try:
+            await db.commit()
+            await db.refresh(user)
+        except IntegrityError as exc:
+            await db.rollback()
+            user = await get_user_by_id(db, admin_uuid)
+            if not user:
+                user = (
+                    await db.execute(select(User).where(User.email == LEGACY_ADMIN_EMAIL))
+                ).scalar_one_or_none()
+            if not user:
+                raise RuntimeError("Could not provision legacy admin account after database conflict.") from exc
+    if user.role != "admin":
         user.role = "admin"
         await db.commit()
         await db.refresh(user)

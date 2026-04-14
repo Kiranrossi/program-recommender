@@ -94,6 +94,7 @@ async function extractError(response: Response, fallback: string): Promise<strin
 }
 
 export async function loginLegacyAdmin(username: string, password: string): Promise<TokenResponse> {
+  await ensureRenderWarm();
   const response = await fetchWithTimeout(`${getApiUrl()}/auth/legacy-admin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -107,7 +108,12 @@ export async function loginLegacyAdmin(username: string, password: string): Prom
     }
     let msg = await extractError(response, "Admin sign in failed");
     if (response.status === 502 || response.status === 504) {
-      msg += " Open https://program-recommender-tzdb.onrender.com/api/v1/health in a new tab, wait for JSON, then try again (free Render can take 30–60s to wake).";
+      msg +=
+        " Open your backend `/api/v1/health` in a new tab, wait for JSON (`database: up`), then try again (free Render can take 30–60s to wake).";
+    }
+    if (response.status === 500) {
+      msg +=
+        " Server error: redeploy the latest backend, then check Render logs for that request. Confirm `DATABASE_URL` (Supabase) and run migrations. If `/api/v1/health` shows `database: down`, fix DB SSL/connection first.";
     }
     if (response.status === 401) {
       msg +=
