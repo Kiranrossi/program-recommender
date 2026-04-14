@@ -83,7 +83,12 @@ async function extractError(response: Response, fallback: string): Promise<strin
 }
 
 export async function loginLegacyAdmin(username: string, password: string): Promise<TokenResponse> {
-  const response = await fetch(`${getApiUrl()}/auth/legacy-admin`, {
+  // Same-origin proxy (/api/admin/legacy-login) avoids browser CORS to Render and "Failed to fetch".
+  const url =
+    typeof window !== "undefined"
+      ? "/api/admin/legacy-login"
+      : `${getApiUrl()}/auth/legacy-admin`;
+  const response = await fetch(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
