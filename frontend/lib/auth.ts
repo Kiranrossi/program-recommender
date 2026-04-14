@@ -1,4 +1,5 @@
 import { getApiUrl } from "./apiBase";
+import { fetchWithTimeout } from "./fetchWithTimeout";
 import { ApiEnvelope } from "./types";
 
 export const TOKEN_KEY = "nsrcel_access_token";
@@ -92,12 +93,7 @@ async function extractError(response: Response, fallback: string): Promise<strin
 }
 
 export async function loginLegacyAdmin(username: string, password: string): Promise<TokenResponse> {
-  // Same-origin proxy (/api/admin/legacy-login) avoids browser CORS to Render and "Failed to fetch".
-  const url =
-    typeof window !== "undefined"
-      ? "/api/admin/legacy-login"
-      : `${getApiUrl()}/auth/legacy-admin`;
-  const response = await fetch(url, {
+  const response = await fetchWithTimeout(`${getApiUrl()}/auth/legacy-admin`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password }),
@@ -124,7 +120,7 @@ export async function loginLegacyAdmin(username: string, password: string): Prom
 }
 
 export async function loginWithPassword(email: string, password: string): Promise<TokenResponse> {
-  const response = await fetch(`${getApiUrl()}/auth/login`, {
+  const response = await fetchWithTimeout(`${getApiUrl()}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -143,7 +139,7 @@ export async function registerAccount(payload: {
   account_kind: "founder" | "team";
   invite_code?: string;
 }): Promise<TokenResponse> {
-  const response = await fetch(`${getApiUrl()}/auth/register`, {
+  const response = await fetchWithTimeout(`${getApiUrl()}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -155,7 +151,7 @@ export async function registerAccount(payload: {
 }
 
 export async function loginWithGoogleCredential(credential: string): Promise<TokenResponse> {
-  const response = await fetch(`${getApiUrl()}/auth/google`, {
+  const response = await fetchWithTimeout(`${getApiUrl()}/auth/google`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ credential }),
@@ -167,7 +163,7 @@ export async function loginWithGoogleCredential(credential: string): Promise<Tok
 }
 
 export async function fetchCurrentUser(): Promise<AuthUser> {
-  const response = await fetch(`${getApiUrl()}/auth/me`, {
+  const response = await fetchWithTimeout(`${getApiUrl()}/auth/me`, {
     cache: "no-store",
     headers: { ...getAuthHeaders() },
   });

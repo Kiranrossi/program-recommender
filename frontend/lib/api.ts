@@ -14,6 +14,7 @@ import {
   SimulationResult,
 } from "./types";
 import { getApiUrl } from "./apiBase";
+import { fetchWithTimeout } from "./fetchWithTimeout";
 import { getAuthHeaders } from "./auth";
 
 function withAuth(headers?: HeadersInit): HeadersInit {
@@ -36,9 +37,10 @@ export function getApiOrigin(): string {
 
 async function safeFetch(url: string, init?: RequestInit): Promise<Response> {
   try {
-    return await fetch(url, init);
+    return typeof window !== "undefined" ? await fetchWithTimeout(url, init) : await fetch(url, init);
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
+    if (msg.includes("timed out")) throw e;
     // In the browser, failed network/CORS/offline usually throws TypeError or "Failed to fetch"
     if (typeof window !== "undefined") {
       const looksNetwork =
@@ -50,8 +52,13 @@ async function safeFetch(url: string, init?: RequestInit): Promise<Response> {
         msg.includes("ECONNREFUSED") ||
         msg.includes("Network request failed");
       if (looksNetwork) {
+        const isLocal =
+          typeof window !== "undefined" &&
+          (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1");
         throw new Error(
-          "Cannot reach the API. Start the backend (port 8000): cd backend && ./.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 — then restart Next.js. Set BACKEND_ORIGIN=http://127.0.0.1:8000 in frontend/.env.local"
+          isLocal
+            ? "Cannot reach the API. Start the backend: cd backend && uvicorn app.main:app --host 127.0.0.1 --port 8000 — and set frontend/.env.local."
+            : "Cannot reach the API. Check NEXT_PUBLIC_API_URL and BACKEND_CORS_ORIGINS (Vercel + Render), or open your API /api/v1/health once to wake Render."
         );
       }
     }
