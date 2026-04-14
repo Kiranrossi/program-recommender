@@ -1,6 +1,7 @@
 import { getApiUrl } from "./apiBase";
 import { fetchWithTimeout } from "./fetchWithTimeout";
 import { ApiEnvelope } from "./types";
+import { ensureRenderWarm } from "./wakeApi";
 
 export const TOKEN_KEY = "nsrcel_access_token";
 export const REMEMBER_EMAIL_KEY = "nsrcel_remembered_email";
@@ -120,6 +121,7 @@ export async function loginLegacyAdmin(username: string, password: string): Prom
 }
 
 export async function loginWithPassword(email: string, password: string): Promise<TokenResponse> {
+  await ensureRenderWarm();
   const response = await fetchWithTimeout(`${getApiUrl()}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -139,6 +141,7 @@ export async function registerAccount(payload: {
   account_kind: "founder" | "team";
   invite_code?: string;
 }): Promise<TokenResponse> {
+  await ensureRenderWarm();
   const response = await fetchWithTimeout(`${getApiUrl()}/auth/register`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -151,6 +154,7 @@ export async function registerAccount(payload: {
 }
 
 export async function loginWithGoogleCredential(credential: string): Promise<TokenResponse> {
+  await ensureRenderWarm();
   const response = await fetchWithTimeout(`${getApiUrl()}/auth/google`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -163,6 +167,7 @@ export async function loginWithGoogleCredential(credential: string): Promise<Tok
 }
 
 export async function fetchCurrentUser(): Promise<AuthUser> {
+  await ensureRenderWarm();
   const response = await fetchWithTimeout(`${getApiUrl()}/auth/me`, {
     cache: "no-store",
     headers: { ...getAuthHeaders() },

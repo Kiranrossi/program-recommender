@@ -16,6 +16,7 @@ import {
 import { getApiUrl } from "./apiBase";
 import { fetchWithTimeout } from "./fetchWithTimeout";
 import { getAuthHeaders } from "./auth";
+import { ensureRenderWarm } from "./wakeApi";
 
 function withAuth(headers?: HeadersInit): HeadersInit {
   const auth = getAuthHeaders();
@@ -37,6 +38,9 @@ export function getApiOrigin(): string {
 
 async function safeFetch(url: string, init?: RequestInit): Promise<Response> {
   try {
+    if (typeof window !== "undefined") {
+      await ensureRenderWarm();
+    }
     return typeof window !== "undefined" ? await fetchWithTimeout(url, init) : await fetch(url, init);
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
