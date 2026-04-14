@@ -7,9 +7,11 @@ export function getApiUrl(): string {
   if (typeof window !== "undefined") {
     return "/api/v1";
   }
-  const v =
-    process.env.INTERNAL_API_URL ||
-    process.env.NEXT_PUBLIC_API_URL ||
-    "http://127.0.0.1:8000/api/v1";
-  return v.replace(/\/$/, "");
+  const internal = process.env.INTERNAL_API_URL?.trim();
+  if (internal) return internal.replace(/\/$/, "");
+  const pub = process.env.NEXT_PUBLIC_API_URL?.trim();
+  if (pub) return pub.replace(/\/$/, "");
+  const backend = process.env.BACKEND_ORIGIN?.trim();
+  if (backend) return `${backend.replace(/\/$/, "")}/api/v1`;
+  return "http://127.0.0.1:8000/api/v1";
 }
