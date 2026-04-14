@@ -1,9 +1,12 @@
 /**
- * Browser: use same-origin `/api/v1` (proxied by Next → FastAPI) to avoid CORS / "Failed to fetch".
+ * Browser: if `NEXT_PUBLIC_API_URL` is set (production), call FastAPI directly so Vercel’s
+ * serverless proxy does not time out while Render cold-starts (~30–60s). Otherwise same-origin `/api/v1`.
  * Server (RSC): call FastAPI directly via INTERNAL_API_URL or NEXT_PUBLIC_API_URL.
  */
 export function getApiUrl(): string {
   if (typeof window !== "undefined") {
+    const pub = process.env.NEXT_PUBLIC_API_URL?.trim();
+    if (pub) return pub.replace(/\/$/, "");
     return "/api/v1";
   }
   const v =
