@@ -8,7 +8,6 @@ import { mapApplyFormToBackendPayload } from "@/lib/applyForm/mapToBackendPayloa
 import { validateFullForm, validateStep, type ApplyFormErrors, type ApplyFormValues } from "@/lib/applyForm/schema";
 import type { Program } from "@/lib/types";
 import BackToHome from "@/components/BackToHome";
-import ProgramExploreModal from "./ProgramExploreModal";
 import Step1FounderStartup from "./steps/Step1FounderStartup";
 import Step2ProblemSolution from "./steps/Step2ProblemSolution";
 import Step3TractionStage from "./steps/Step3TractionStage";
@@ -43,7 +42,6 @@ export default function ApplyWizard() {
   const [programsError, setProgramsError] = useState<string | null>(null);
   const [errors, setErrors] = useState<ApplyFormErrors>({});
   const [message, setMessage] = useState<string | null>(null);
-  const [exploreOpen, setExploreOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [submittedId, setSubmittedId] = useState("");
   const [lastSavedAt, setLastSavedAt] = useState("");
@@ -197,15 +195,7 @@ export default function ApplyWizard() {
           {step === 4 && <Step4FounderTeam data={data} setData={setData} errors={errors} />}
           {step === 5 && <Step5SocialImpact data={data} setData={setData} errors={errors} />}
           {step === 6 && <Step6PitchMaterials data={data} setData={setData} errors={errors} />}
-          {step === 7 && (
-            <Step7ProgramPreferences
-              data={data}
-              setData={setData}
-              errors={errors}
-              programs={programs}
-              onExplorePrograms={() => setExploreOpen(true)}
-            />
-          )}
+          {step === 7 && <Step7ProgramPreferences data={data} setData={setData} errors={errors} programs={programs} />}
           {step === 8 && <Step8Summary data={data} programs={programs} />}
 
           {programsError && step === 7 && <p className="mt-4 text-sm text-[#F0997B]">{programsError}</p>}
@@ -265,7 +255,6 @@ export default function ApplyWizard() {
         </div>
       </section>
 
-      <ProgramExploreModal open={exploreOpen} onClose={() => setExploreOpen(false)} programs={programs} />
     </main>
   );
 }

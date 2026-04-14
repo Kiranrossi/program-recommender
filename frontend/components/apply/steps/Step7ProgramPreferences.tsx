@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo } from "react";
 import type { Program } from "@/lib/types";
 import { buildProgramTags } from "@/lib/programDisplay";
@@ -12,10 +13,9 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<ApplyFormValues>>;
   errors: ApplyFormErrors;
   programs: Program[];
-  onExplorePrograms: () => void;
 };
 
-export default function Step7ProgramPreferences({ data, setData, errors, programs, onExplorePrograms }: Props) {
+export default function Step7ProgramPreferences({ data, setData, errors, programs }: Props) {
   const e = errors.preferences ?? {};
   const ordered = data.preferences.orderedIds;
   const rec = useMemo(() => recommendProgram(programs, data), [programs, data]);
@@ -58,15 +58,18 @@ export default function Step7ProgramPreferences({ data, setData, errors, program
         </div>
       )}
 
-      <div className="mt-4 flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={onExplorePrograms}
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <Link
+          href="/programs"
+          target="_blank"
+          rel="noopener noreferrer"
           className="rounded-lg border border-white/20 bg-white/[0.06] px-4 py-2 text-xs font-medium text-white hover:border-white/35"
         >
           Explore programs
-        </button>
-        <span className="self-center text-[11px] text-white/30">You can select up to 3 programs</span>
+        </Link>
+        <span className="text-[11px] text-white/30">Opens full program guide in a new tab</span>
+        <span className="text-[11px] text-white/25">·</span>
+        <span className="text-[11px] text-white/30">You can select up to 3 programs here</span>
       </div>
 
       {e.orderedIds && <p className={`${applyError} mt-3`}>{e.orderedIds}</p>}
