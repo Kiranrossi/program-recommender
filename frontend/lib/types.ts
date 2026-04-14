@@ -67,6 +67,8 @@ export type ProgramOption = {
   id: string;
   name: string;
   slug: string;
+  description?: string | null;
+  criteria?: Record<string, unknown>;
   required_fields?: string[];
   scoring_weights?: {
     stage_fit: number;

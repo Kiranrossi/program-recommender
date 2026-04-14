@@ -107,6 +107,20 @@ export async function fetchProgramOptions(): Promise<ProgramOption[]> {
   return envelope.data;
 }
 
+/** Build full Program rows for UI (cards, tags) from /programs/options — avoids /programs serialization edge cases. */
+export function programOptionsToPrograms(options: ProgramOption[]): Program[] {
+  return options.map((o) => ({
+    id: o.id,
+    name: o.name,
+    slug: o.slug,
+    description: o.description ?? null,
+    criteria: o.criteria && typeof o.criteria === "object" ? o.criteria : {},
+    is_active: true,
+    application_deadline: null,
+    max_intake: null,
+  }));
+}
+
 export async function createApplication(payload: ApplicationCreatePayload): Promise<ApplicationCreateResult> {
   const base = getApiUrl();
   const response = await safeFetch(`${base}/applications`, {

@@ -25,6 +25,8 @@ async def list_program_options(db: AsyncSession = Depends(get_db)):
                 "id": str(program.id),
                 "name": program.name,
                 "slug": program.slug,
+                "description": program.description,
+                "criteria": program.criteria or {},
                 "required_fields": cfg_json.get("required_fields", []),
                 "scoring_weights": {
                     "stage_fit": float(cfg.stage_fit_weight) if cfg else 0.25,

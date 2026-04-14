@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { createApplication, fetchPrograms } from "@/lib/api";
+import { createApplication, fetchPrograms, fetchProgramOptions, programOptionsToPrograms } from "@/lib/api";
 import { EMPTY_APPLY_FORM, DRAFT_KEY_V2 } from "@/lib/applyForm/defaults";
 import { mapApplyFormToBackendPayload } from "@/lib/applyForm/mapToBackendPayload";
 import { validateFullForm, validateStep, type ApplyFormErrors, type ApplyFormValues } from "@/lib/applyForm/schema";
@@ -49,9 +49,29 @@ export default function ApplyWizard() {
   const [lastSavedAt, setLastSavedAt] = useState("");
 
   useEffect(() => {
-    fetchPrograms()
-      .then(setPrograms)
-      .catch(() => setProgramsError("Could not load programs. Check your connection and API configuration."));
+    let cancelled = false;
+    setProgramsError(null);
+    (async () => {
+      try {
+        const opts = await fetchProgramOptions();
+        if (!cancelled) setPrograms(programOptionsToPrograms(opts));
+      } catch {
+        try {
+          const list = await fetchPrograms();
+          if (!cancelled) setPrograms(list);
+        } catch (e) {
+          if (!cancelled) {
+            const detail = e instanceof Error ? e.message : "Request failed.";
+            setProgramsError(
+              `${detail} If you run locally, start the backend (uvicorn on port 8000) and set BACKEND_ORIGIN in frontend/.env.local to match.`
+            );
+          }
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   useEffect(() => {
